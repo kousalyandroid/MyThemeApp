@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "203715365810",
+    "project_id": "mythemeapp",
+    "storage_bucket": "mythemeapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:203715365810:android:ccac7e4cacb5227bccf2ab",
+        "android_client_info": {
+          "package_name": "com.kousihub.mythemeapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "203715365810-ndvqfci59fd7se9b8fu3j97d2jplflbo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8Fcd2OAUpBHVwZYQkEWf-i7v8gEmv8oE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "203715365810-ndvqfci59fd7se9b8fu3j97d2jplflbo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
