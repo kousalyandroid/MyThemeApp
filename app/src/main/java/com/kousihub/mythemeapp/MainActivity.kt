@@ -6,14 +6,20 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.kousihub.mythemeapp.databinding.ActivityMainBinding
 import com.kousihub.mythemeapp.utils.toast
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
     private lateinit var binding: ActivityMainBinding
     private var isSearchVisible = true
     private val TAG = "MainActivity"
@@ -22,8 +28,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
-            Log.w(TAG, "Fetching FCM registration token failed", task.exception)
-            return@OnCompleteListener
+                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
             }
 
             // Get new FCM registration token
@@ -34,7 +40,27 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, msg)
             Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
         })
+        firebaseAnalytics = Firebase.analytics
+        checkAnalytics()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        val crashButton = Button(this)
+        crashButton.text = "Test Crash"
+        crashButton.setOnClickListener {
+            throw RuntimeException("Test Crash") // Force a crash
+        }
+
+        addContentView(
+            crashButton, ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+        )
+    }
+
+    private fun checkAnalytics() {
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM, Bundle().apply {
+            
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
